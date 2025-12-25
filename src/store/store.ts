@@ -9,6 +9,7 @@ interface Config {
   connectorNumber: number;
   tagID: string;
   ocppVersion: string;
+  authToken: string;
   basicAuthSettings: BasicAuthSettings;
   autoMeterValueSetting: AutoMeterValueSetting;
   Experimental: Experimental | null;

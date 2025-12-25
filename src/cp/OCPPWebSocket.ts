@@ -44,6 +44,7 @@ export class OCPPWebSocket {
   private _ws: WebSocket | null = null;
   private _url: string;
   private _basicAuth: { username: string; password: string } | null = null;
+  private _apiToken: string;
   private _chargePointId: string;
   private _logger: Logger;
   private _messageHandler: MessageHandler | null = null;
@@ -56,11 +57,13 @@ export class OCPPWebSocket {
     url: string,
     chargePointId: string,
     logger: Logger,
+    authToken: string,
     basicAuthSettings: { username: string; password: string } | null = null,
   ) {
     this._url = url;
     this._chargePointId = chargePointId;
     this._logger = logger;
+    this._apiToken = authToken;
     if (basicAuthSettings) {
       this._basicAuth = {
         username: basicAuthSettings.username,
@@ -78,15 +81,15 @@ export class OCPPWebSocket {
     onclose: ((ev: CloseEvent) => void) | null = null,
   ): void {
     const url = new URL(this._url);
+
+    url.searchParams.set("token", this._apiToken);
+    url.searchParams.set("cpid", this._chargePointId);
     if (this?._basicAuth) {
       url.username = this._basicAuth.username;
       url.password = this._basicAuth.password;
     }
     console.log("url", url);
-    this._ws = new WebSocket(`${url.toString()}${this._chargePointId}`, [
-      "ocpp1.6",
-      "ocpp1.5",
-    ]);
+    this._ws = new WebSocket(url.toString(), ["ocpp1.6", "ocpp1.5"]);
     this._ws.onopen = () => {
       if (onopen) {
         onopen();

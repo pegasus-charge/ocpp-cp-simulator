@@ -11,6 +11,8 @@ const Settings: React.FC = () => {
   const [tagID, setTagID] = useState<string>("");
   const [ocppVersion, setOcppVersion] = useState<string>("OCPP-1.6J");
 
+  const [authToken, setAuthToken] = useState<string>("");
+
   const [basicAuthEnabled, setBasicAuthEnabled] = useState<boolean>(false);
   const [basicAuthUsername, setBasicAuthUsername] = useState<string>("");
   const [basicAuthPassword, setBasicAuthPassword] = useState<string>("");
@@ -36,6 +38,7 @@ const Settings: React.FC = () => {
       setTagID(config.tagID);
       setOcppVersion(config.ocppVersion);
 
+      setAuthToken(config.authToken);
       setBasicAuthEnabled(config.basicAuthSettings?.enabled);
       setBasicAuthUsername(config.basicAuthSettings?.username);
       setBasicAuthPassword(config.basicAuthSettings?.password);
@@ -63,6 +66,7 @@ const Settings: React.FC = () => {
       ChargePointID: cpID,
       tagID,
       ocppVersion,
+      authToken,
       basicAuthSettings: {
         enabled: basicAuthEnabled,
         username: basicAuthUsername,
@@ -139,6 +143,23 @@ const Settings: React.FC = () => {
             value={cpID}
             onChange={(e) => setCpID(e.target.value)}
             placeholder="CP001"
+            style={{ maxWidth: "20ch" }}
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="AuthToken"
+          >
+            Auth Token
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="AuthToken"
+            type="text"
+            value={authToken}
+            onChange={(e) => setAuthToken(e.target.value)}
+            placeholder="authToken"
             style={{ maxWidth: "20ch" }}
           />
         </div>

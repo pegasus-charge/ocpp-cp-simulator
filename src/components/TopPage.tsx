@@ -29,6 +29,7 @@ const TopPage: React.FC = () => {
           cp.ChargePointID,
           config.BootNotification ?? DefaultBootNotification,
           config.wsURL,
+          config.authToken,
           config.basicAuthSettings,
           config.autoMeterValueSetting,
         ),
@@ -43,6 +44,7 @@ const TopPage: React.FC = () => {
           config.ChargePointID,
           config.BootNotification ?? DefaultBootNotification,
           config.wsURL,
+          config.authToken,
           config.basicAuthSettings,
           config.autoMeterValueSetting,
         ),
@@ -230,6 +232,7 @@ const NewChargePoint = (
   ChargePointID: string,
   BootNotification: BootNotification,
   WSURL: string,
+  authToken: string,
   basicAuthSettings: { username: string; password: string } | null,
   autoMeterValueSetting: { interval: number; value: number } | null,
 ) => {
@@ -241,6 +244,7 @@ const NewChargePoint = (
     BootNotification,
     ConnectorNumber,
     WSURL,
+    authToken,
     basicAuthSettings,
     autoMeterValueSetting,
   );

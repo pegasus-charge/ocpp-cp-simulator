@@ -35,6 +35,7 @@ export class ChargePoint {
     _bootNotification: BootNotification,
     connectorCount: number,
     wsUrl: string,
+    authToken: string,
     basicAuthSettings: { username: string; password: string } | null,
     autoMeterValueSetting: { interval: number; value: number } | null,
   ) {
@@ -49,6 +50,7 @@ export class ChargePoint {
       wsUrl,
       this._id,
       this._logger,
+      authToken,
       basicAuthSettings,
     );
     this._messageHandler = new OCPPMessageHandler(
